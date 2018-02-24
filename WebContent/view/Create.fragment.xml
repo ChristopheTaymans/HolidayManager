@@ -1,0 +1,25 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog
+		title="{i18n>holidayCreationTitle}"
+		class="sapUiContentPadding">
+		<content>
+			 <RadioButtonGroup columns="1" class="sapUiMediumMarginBottom">
+				<buttons>
+					<RadioButton selected="{option>/all}" text="{i18n>AllDay}"/>
+					<RadioButton selected="{option>/morning}" text="{i18n>Morning}"/>
+					<RadioButton selected="{option>/afternoon}" text="{i18n>Afternoon}"/>
+				</buttons>
+			</RadioButtonGroup>		
+		</content>
+		<buttons>
+			<Button					
+				text="{i18n>submit}"
+				press="_onCreate" />
+			<Button					
+				text="{i18n>skip}"
+				press="_onSkipCreate" />	
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,42 @@
+.essHolidayManager .tabIcon {
+	
+  background-color: #e09d00 !Important;
+  color: #e09d00 !Important;
+}
+
+
+span[data-background="bankHoliday"] {
+ background-color: #e09d00 !Important;
+  color: #e09d00 !Important;
+}
+
+span[data-background="fullDay"] {
+ background-color: #c14646 !Important;
+  color: #c14646 !Important;
+}
+
+span[data-background="morning"] {
+ background-color: #0092d1 !Important;
+  color: #0092d1 !Important;
+}
+
+span[data-background="afternoon"] {
+ background-color: #759421 !Important;
+  color: #759421 !Important;
+}
+
+span[data-color="bankHoliday"] {
+ color: #e09d00 !Important;
+}
+
+span[data-color="fullDay"] {
+ color: #ff0000!Important;
+}
+
+span[data-color="morning"] {
+ color: #0092d1 !Important;
+}
+
+span[data-color="afternoon"] {
+ color: #759421 !Important;
+}

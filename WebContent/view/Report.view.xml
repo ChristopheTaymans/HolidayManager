@@ -1,0 +1,122 @@
+<mvc:View controllerName="ess.holiday.manager.controller.Report" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" 
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.m.semantic" class="viewPadding">
+	<semantic:FullscreenPage id="page" title="{i18n>Holidayreport} : {appView>/Fullname}" busy="{appView>/busy}" busyIndicatorDelay="{appView>/delay}"
+		showNavButton="true" navButtonPress='onNavBack'>
+		<semantic:content>
+			<FlexBox alignItems="Center" justifyContent="Center" direction="Column">
+				<items>
+					<u:CalendarMonthInterval id="MonthSelector" width="{= ${device>/system/desktop} ? '60rem' : '100%' }" startDateChange="onDateChange"
+						intervalSelection="false" singleSelection="true" select="onSelect"></u:CalendarMonthInterval>
+		<IconTabBar
+		id="idIconTabBar"
+		select="onFilterSelect"
+		expandable="false">
+		<items>
+			<IconTabFilter
+			    icon="sap-icon://clear-filter"	 
+				count="{count>/All}"
+				text="{i18n>all}"
+				key="all" />
+			<IconTabSeparator />
+			<IconTabFilter
+				icon="sap-icon://filter"
+				count="{count>/BankHoliday}"
+				text="{i18n>bankHoliday}"
+				key="bankHoliday"/>		
+			<IconTabFilter
+				icon="sap-icon://filter"
+				count="{count>/FullDay}"
+				text="{i18n>AllDay}"
+				key="fullday" />
+			<IconTabFilter
+				icon="sap-icon://filter"
+				count="{count>/Morning}"
+				text="{i18n>Morning}"
+				key="morning" />
+			<IconTabFilter
+				icon="sap-icon://filter"
+				count="{count>/Afternoon}"
+				text="{i18n>Afternoon}"
+				key="afternoon" />	
+				
+			 <IconTabSeparator />			 
+			 	<IconTabFilter
+				icon="sap-icon://approvals"
+				iconColor="Critical"
+				count="{count>/Approval}"
+				text="{i18n>waitApproval}"
+				key="WA">	
+				<customData>
+					<core:CustomData key="type" value="approval"/>
+				</customData>	
+			</IconTabFilter>
+			<IconTabFilter
+				icon="sap-icon://accept"
+				iconColor="Positive"
+				count="{count>/Approved}"
+				text="{i18n>approved}"
+				key="AP">
+				 <customData>
+					<core:CustomData key="type" value="approval"/>
+				</customData>	
+			</IconTabFilter>
+			<IconTabFilter
+				icon="sap-icon://decline"
+				iconColor="Negative"
+				count="{count>/Rejected}"
+				text="{i18n>rejected}"
+				key="NA">
+				 <customData>
+					<core:CustomData key="type" value="approval"/>
+				</customData>	
+			</IconTabFilter>				 
+		</items>
+		<content>
+		<Table id="HolidayList" inset="false" items="{ path: 'holidays>/', sorter: { path: 'starDate'} }" noDataText="{i18n>nothingFound}"
+						width="{= ${device>/system/desktop} ? '60rem' : '100%' }" showSeparators="All">
+						<headerToolbar>
+							<Toolbar>
+								<Title text="{i18n>dateList}" level="H2"/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column width="10%"></Column>
+							<Column >
+								<Text text="{i18n>date}"/>
+							</Column>
+							<Column >
+								<Text text="{i18n>type}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>status}"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="...." >
+										<customData>
+											<core:CustomData key="background" value="{ path : 'holidays>color' , formatter : '.formatter.customDataFormatter' }" writeToDom="true"/>
+										</customData>
+									</Text>
+									<Text text="{ path: 'holidays>startDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full' } }"/>
+									<Text text="{holidays>tooltip}">
+										<customData>
+											<core:CustomData key="color" value="{ path : 'holidays>color', formatter : '.formatter.customDataFormatter' }" writeToDom="true"/>
+										</customData>
+									</Text>
+									<ObjectStatus text="{ path : 'holidays>status', formatter : '.formatter.holidayStatusText' }"
+										state="{ path : 'holidays>status', formatter : '.formatter.holidayStatus' }"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+		</content>
+		
+	</IconTabBar>
+					
+				</items>
+			</FlexBox>
+		</semantic:content>
+	</semantic:FullscreenPage>
+</mvc:View>

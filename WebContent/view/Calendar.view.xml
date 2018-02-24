@@ -1,0 +1,72 @@
+<mvc:View controllerName="ess.holiday.manager.controller.Calendar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.m.semantic" class="viewPadding">
+	<semantic:FullscreenPage id="page" title="{i18n>Holidaymanager} : {appView>/Fullname}" busy="{appView>/busy}" busyIndicatorDelay="{appView>/delay}">
+		<semantic:content>
+			<FlexBox alignItems="Center" justifyContent="Center" direction="Column">
+				<items>
+					<u:CalendarLegend id="legend1" visible="{= ${device>/system/desktop}}">
+						<u:items>
+							<u:CalendarLegendItem type="Type01" text="{i18n>bankHoliday}"/>
+							<u:CalendarLegendItem type="Type03" text="{i18n>AllDay}"/>
+							<u:CalendarLegendItem type="Type06" text="{i18n>Morning}"/>
+							<u:CalendarLegendItem type="Type08" text="{i18n>Afternoon}"/>
+						</u:items>
+					</u:CalendarLegend>
+					<u:Calendar id="calendar" months="1" firstDayOfWeek="1" width="{= ${device>/system/desktop} ? '60rem' : '100%' }" 
+						intervalSelection="false" singleSelection="false" select="_onSelect" startDateChange="_onDateChange" specialDates="{holidays>/}">
+						<u:specialDates>
+							<u:DateTypeRange startDate="{holidays>startDate}" tooltip="{holidays>tooltip}" type="{holidays>type}"></u:DateTypeRange>
+						</u:specialDates>
+					</u:Calendar>
+					<Table id="DateList" inset="false" items="{ path: 'holidays>/', sorter: { path: 'starDate'} }" noDataText="{i18n>noData}"
+						width="{= ${device>/system/desktop} ? '60rem' : '100%' }" showSeparators="All">
+						<headerToolbar>
+							<Toolbar>
+								<Title text="{i18n>dateList}" level="H2"/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column width="10%"></Column>
+							<Column >
+								<Text text="{i18n>date}"/>
+							</Column>
+							<Column >
+								<Text text="{i18n>type}"/>
+							</Column>
+							<Column >
+								<Text text="{i18n>status}"/>
+							</Column>
+							<Column hAlign="End"></Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text=".........">
+										<customData>
+											<core:CustomData key="background" value="{ path : 'holidays>color' , formatter : '.formatter.customDataFormatter' }" writeToDom="true"/>
+										</customData>
+									</Text>
+									<Text text="{ path: 'holidays>startDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full' } }"/>
+									<Text text="{holidays>tooltip}">
+										<customData>
+											<core:CustomData key="color" value="{ path : 'holidays>color', formatter : '.formatter.customDataFormatter' }" writeToDom="true"/>
+										</customData>
+									</Text>
+									<ObjectStatus text="{ path : 'holidays>status', formatter : '.formatter.holidayStatusText' }"
+										state="{ path : 'holidays>status', formatter : '.formatter.holidayStatus' }"/>
+									<Button icon="sap-icon://delete" press="_onDelete" visible="{holidays>delFlag}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</items>
+			</FlexBox>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<Button icon="sap-icon://date-time" text="{i18n>report}" press="_onReport"/>
+		</semantic:customFooterContent>
+		<semantic:addAction>
+			<semantic:AddAction press="_onAdd" visible="{= ${appView>/add} }"/>
+		</semantic:addAction>
+	</semantic:FullscreenPage>
+</mvc:View>
